@@ -47,9 +47,7 @@
             "error",
             "always"
         ],
-        "no-console": [
-            "warn",
-            "always"
-        ]
+        "no-console": 1
+        
     }
 }

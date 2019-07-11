@@ -1,34 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Moment from 'moment';
 
-function Ticket(props) {
-  return (
+function Ticket(props){
+  const ticketInformation =
     <div>
-      <style jsx>{`
-        .color-toggle {
-          background-color: grey;
-          padding-left: 10%;
-          padding-right: 10%;
-          padding-top: 1%;
-        }
-        .color-toggle:hover {
-          background-color: lightgrey;
-        }
-      `}</style>
-      <div className="color-toggle">
-        <h3>{props.location} - {props.names}</h3>
-        <h4>{props.formattedWaitTime}</h4>
-        <p><em>{props.issue}</em></p>
-        <br/>
-      </div>
+      <h3>{props.location} - {props.names}</h3>
+      <h4>{props.formattedWaitTime}</h4>
       <hr/>
-    </div>
-  );
-}
-
-function displayTimeOpen(timeOpen) {
-  return timeOpen.from(new Moment(), true);
+    </div>;
+  if (props.currentRouterPath === '/admin'){
+    return (
+      <div onClick={() => {props.onTicketSelection(props.ticketId);}}>
+        {ticketInformation}
+      </div>
+    );
+  } else {
+    return (
+      <div>
+        {ticketInformation}
+      </div>
+    );
+  }
 }
 
 Ticket.propTypes = {
@@ -36,6 +28,9 @@ Ticket.propTypes = {
   location: PropTypes.string.isRequired,
   issue: PropTypes.string,
   formattedWaitTime: PropTypes.string.isRequired,
+  currentRouterPath: PropTypes.string,
+  onTicketSelection: PropTypes.func,
+  ticketId: PropTypes.string.isRequired
 };
 
 export default Ticket;
